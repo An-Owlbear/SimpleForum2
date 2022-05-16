@@ -1,6 +1,24 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using SimpleForum.Data;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.Local.json", false, false);
 
 // Add services to the container.
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+        options.SlidingExpiration = true;
+    });
+
+builder.Services.AddDbContext<SimpleForumContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database") ??
+                      throw new InvalidOperationException("Database connection string must be set"));
+});
+
 builder.Services.AddRazorPages();
 
 WebApplication app = builder.Build();
@@ -18,6 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
