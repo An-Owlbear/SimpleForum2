@@ -1,48 +1,25 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.navbar {
+  background: var(--grey-900);
+  color: var(--text-brighter);
+  height: 60px;
+  padding: 0 200px;
+  display: flex;
+  align-items: center;
 }
 
-a {
-  color: #0077cc;
+.navbar a {
+  text-decoration: none;
+  font-size: 1.25rem;
+  margin: 0 1rem;
+  color: inherit;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.navbar .home-btn {
+  margin-right: auto;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+.navbar .register-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--accent-500);
+  border-radius: 5px;
 }
