@@ -1,0 +1,15 @@
+﻿@page
+@model SimpleForum.Pages.Register
+@{
+    ViewData["title"] = "Register";
+}
+
+<div class="container">
+    <h1>Register</h1>
+    <form method="post">
+        <input name="email" placeholder="Email" />
+        <input name="password" placeholder="Password" type="password" />
+        <input name="confirmPassword" placeholder="Confirm password" type="password" />
+        <button type="submit">Register</button>
+    </form>
+</div>
