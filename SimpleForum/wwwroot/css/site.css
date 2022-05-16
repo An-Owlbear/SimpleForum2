@@ -9,20 +9,23 @@
   --accent-800: hsl(220, 70%, 30%);
   --accent-900: hsl(220, 60%, 20%);
   
-  --grey-100: hsl(210, 20%, 80%);
-  --grey-200: hsl(210, 19%, 73%);
-  --grey-300: hsl(210, 18%, 65%);
-  --grey-400: hsl(210, 18%, 58%);
-  --grey-500: hsl(210, 17%, 50%);
-  --grey-600: hsl(210, 17%, 43%);
-  --grey-700: hsl(210, 16%, 35%);
-  --grey-800: hsl(210, 16%, 28%);
-  --grey-900: hsl(210, 15%, 20%);
+  --grey-50: hsl(210, 21%, 95%);
+  --grey-100: hsl(210, 20%, 90%);
+  --grey-200: hsl(210, 20%, 80%);
+  --grey-300: hsl(210, 19%, 73%);
+  --grey-400: hsl(210, 18%, 65%);
+  --grey-500: hsl(210, 18%, 58%);
+  --grey-600: hsl(210, 17%, 50%);
+  --grey-700: hsl(210, 17%, 43%);
+  --grey-800: hsl(210, 16%, 35%);
+  --grey-900: hsl(210, 16%, 28%);
   
   --text: hsl(211, 20%, 45%);
   --text-light: hsl(211, 9%, 52%);
   --text-lighter: hsl(211, 7%, 60%);
   --text-brighter: hsl(210, 29%, 95%);
+  
+  --white: hsl(0, 0%, 98%);
 }
 
 /* inter-100 - latin */
@@ -153,9 +156,13 @@
 
 body {
   margin: 0;
-  font-family: Inter, sans-serif;
   font-size: 16px;
   min-height: 100%;
   background-color: var(--grey-100);
   color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
 }
