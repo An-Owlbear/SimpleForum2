@@ -14,12 +14,23 @@
   color: inherit;
 }
 
+.navbar a:hover {
+  color: var(--text-lighter);
+  transition: color 0.1s ease;
+}
+
 .navbar .home-btn {
   margin-right: auto;
 }
 
 .navbar .register-btn {
   padding: 0.5rem 1rem;
-  background-color: var(--accent-500);
+  background-color: var(--accent-600);
   border-radius: 5px;
+}
+
+.navbar .register-btn:hover {
+  background-color: var(--accent-700);
+  color: inherit;
+  transition: background-color 0.1s ease;
 }
