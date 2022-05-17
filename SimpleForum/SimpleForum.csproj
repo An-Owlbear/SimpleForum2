@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="Extensions" />
+      <Folder Include="wwwroot\images\profile_images" />
       <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
@@ -21,5 +22,5 @@
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
       <PackageReference Include="Scrutor" Version="4.1.0" />
     </ItemGroup>
-
+    
 </Project>

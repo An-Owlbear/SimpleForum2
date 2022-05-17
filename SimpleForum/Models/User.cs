@@ -20,6 +20,7 @@ public class User
         Email = email;
         PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
         DateJoined = DateTime.UtcNow;
+        ProfileImage = "default_pfp";
     }
 
     [Key]
@@ -27,4 +28,5 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; } 
     public DateTime DateJoined { get; set; }
+    public string ProfileImage { get; set; }
 }
