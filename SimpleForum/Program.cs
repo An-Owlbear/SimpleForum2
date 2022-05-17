@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SimpleForum.Data;
+using SimpleForum.Interfaces;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.Local.json", false, false);
@@ -20,6 +21,13 @@ builder.Services.AddDbContext<SimpleForumContext>(options =>
 });
 
 builder.Services.AddRazorPages();
+
+// Adds all IRequestHandler classes as transient dependencies
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<SimpleForumContext>()
+    .AddClasses(c => c.AssignableTo(typeof(IRequestHandler<,>)))
+    .AsImplementedInterfaces()
+    .WithTransientLifetime());
 
 WebApplication app = builder.Build();
 
