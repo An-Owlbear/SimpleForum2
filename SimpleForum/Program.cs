@@ -21,6 +21,7 @@ builder.Services.AddDbContext<SimpleForumContext>(options =>
 });
 
 builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor();
 
 // Adds all IRequestHandler classes as transient dependencies
 builder.Services.Scan(scan => scan

@@ -19,3 +19,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.container .error-msg {
+  background-color: var(--red-100);
+  color: var(--red-700);
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  padding: 1rem;
+}
