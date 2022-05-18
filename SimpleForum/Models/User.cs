@@ -5,12 +5,13 @@ namespace SimpleForum.Models;
 public class User
 {
     // Constructor used by EF Core when retrieving users from the database
-    public User(string username, string email, string passwordHash, DateTime dateJoined)
+    public User(string username, string email, string passwordHash, DateTime dateJoined, string profileImage)
     {
         Username = username;
         Email = email;
         PasswordHash = passwordHash;
         DateJoined = dateJoined;
+        ProfileImage = profileImage;
     }
 
     // Constructor used when creating a new user
