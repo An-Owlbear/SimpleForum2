@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Extensions" />
       <Folder Include="wwwroot\images\profile_images" />
       <Folder Include="wwwroot\lib" />
     </ItemGroup>

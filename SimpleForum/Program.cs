@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SimpleForum.Data;
 using SimpleForum.Interfaces;
+using SimpleForum.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.Local.json", false, false);
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<SimpleForumContext>(options =>
 
 builder.Services.AddRazorPages();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
 
 // Adds all IRequestHandler classes as transient dependencies
 builder.Services.Scan(scan => scan
