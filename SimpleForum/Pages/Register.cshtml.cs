@@ -54,7 +54,7 @@ public class Register : PageModel
             if (String.IsNullOrEmpty(param.Email) || String.IsNullOrEmpty(param.Username) || String.IsNullOrEmpty(param.Password))
                 return Result.Failure("Please enter all details");
 
-            if (!Regex.IsMatch(param.Email, "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/"))
+            if (!Regex.IsMatch(param.Email, @"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"))
                 return Result.Failure("Please enter a valid email address");
 
             if (param.Password != param.ConfirmPassword) return Result.Failure("The entered passwords do not match");
