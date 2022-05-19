@@ -7,8 +7,12 @@
 <div class="container">
     <h1>Login</h1>
     <form method="post">
-        <input name="email" placeholder="Email" />
-        <input name="password" type="password" placeholder="Passowrd" />
+        @if (Model.Data?.Error != null)
+        {
+            <div class="error-msg">@Model.Data.Error</div>
+        }
+        <input name="username" placeholder="Username of email"/>
+        <input name="password" type="password" placeholder="Password"/>
         <button type="submit">Login</button>
     </form>
 </div>

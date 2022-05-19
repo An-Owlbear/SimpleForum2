@@ -1,10 +1,8 @@
-﻿using System.Security.Claims;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SimpleForum.Data;
+using SimpleForum.Extensions;
 using SimpleForum.Interfaces;
 using SimpleForum.Models;
 using SimpleForum.Util;
@@ -61,18 +59,12 @@ public class Register : PageModel
 
             if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure("The entered email is in use");
 
-            await _context.Users.AddAsync(new User(param.Username, param.Email, param.Password), cancellationToken);
+            User userToAdd = new (param.Username, param.Email, param.Password);
+            await _context.Users.AddAsync(userToAdd, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-            
-            // Sets authentication cookie
-            List<Claim> claims = new()
-            {
-                new Claim(ClaimTypes.NameIdentifier, param.Username)
-            };
-            ClaimsIdentity identity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await _httpContextAccessor.HttpContext!.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(identity));
-            
+
+            await _httpContextAccessor.HttpContext.SignInAsync(userToAdd);
+
             return Result.Successful();
         }
     }
