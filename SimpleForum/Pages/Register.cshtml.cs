@@ -11,21 +11,18 @@ namespace SimpleForum.Pages;
 
 public class Register : PageModel
 {
-    private readonly IRequestHandler<RequestModel, Result> _handler;
-
     public PageData Data { get; private set; } = new(null);
-
-    public Register(IRequestHandler<RequestModel, Result> handler)
-    {
-        _handler = handler;
-    }
 
     public void OnGet() { }
     
-    public async Task<IActionResult> OnPost(RequestModel model)
+    public async Task<IActionResult> OnPost(RequestModel model, [FromServices] IRequestHandler<RequestModel, Result<User>> handler)
     {
-        Result result = await _handler.Handle(model);
-        if (result.Success) return RedirectToPage("Index");
+        Result<User> result = await handler.Handle(model);
+        if (result.Success && result.Value != null)
+        {
+            await HttpContext.SignInAsync(result.Value);
+            return RedirectToPage("Index");
+        }
         
         Data = new PageData(result.Error);
         return Page();
@@ -35,37 +32,33 @@ public class Register : PageModel
     
     public record RequestModel(string Username, string Email, string Password, string ConfirmPassword);
 
-    public class Handler : IRequestHandler<RequestModel, Result>
+    public class Handler : IRequestHandler<RequestModel, Result<User>>
     {
         private readonly SimpleForumContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public Handler(SimpleForumContext context, IHttpContextAccessor httpContextAccessor)
+        public Handler(SimpleForumContext context)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<Result> Handle(RequestModel param, CancellationToken cancellationToken = default)
+        public async Task<Result<User>> Handle(RequestModel param, CancellationToken cancellationToken = default)
         {
             // Checks given data for errors and signs up user if there is none
             if (String.IsNullOrEmpty(param.Email) || String.IsNullOrEmpty(param.Username) || String.IsNullOrEmpty(param.Password))
-                return Result.Failure("Please enter all details");
+                return Result.Failure<User>("Please enter all details");
 
             if (!Regex.IsMatch(param.Email, @"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"))
-                return Result.Failure("Please enter a valid email address");
+                return Result.Failure<User>("Please enter a valid email address");
 
-            if (param.Password != param.ConfirmPassword) return Result.Failure("The entered passwords do not match");
+            if (param.Password != param.ConfirmPassword) return Result.Failure<User>("The entered passwords do not match");
 
-            if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure("The entered email is in use");
+            if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure<User>("The entered email is in use");
 
             User userToAdd = new (param.Username, param.Email, param.Password);
             await _context.Users.AddAsync(userToAdd, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            await _httpContextAccessor.HttpContext.SignInAsync(userToAdd);
-
-            return Result.Successful();
+            return Result.Successful(userToAdd);
         }
     }
 }

@@ -14,10 +14,14 @@ public class Login : PageModel
     
     public void OnGet() { }
 
-    public async Task<IActionResult> OnPost(RequestModel request, [FromServices] IRequestHandler<RequestModel, Result> handler)
+    public async Task<IActionResult> OnPost(RequestModel request, [FromServices] IRequestHandler<RequestModel, Result<User>> handler)
     {
-        Result result = await handler.Handle(request);
-        if (result.Success) return RedirectToPage("Index");
+        Result<User> result = await handler.Handle(request);
+        if (result.Success && result.Value != null)
+        {
+            await HttpContext.SignInAsync(result.Value);
+            return RedirectToPage("Index");
+        }
 
         Data = new PageData(result.Error);
         return Page();
@@ -27,27 +31,24 @@ public class Login : PageModel
 
     public record RequestModel(string Username, string Password);
 
-    public class Handler : IRequestHandler<RequestModel, Result>
+    public class Handler : IRequestHandler<RequestModel, Result<User>>
     {
         private readonly SimpleForumContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public Handler(SimpleForumContext context, IHttpContextAccessor httpContextAccessor)
+        public Handler(SimpleForumContext context)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<Result> Handle(RequestModel param, CancellationToken cancellationToken = default)
+        public Task<Result<User>> Handle(RequestModel param, CancellationToken cancellationToken = default)
         {
             User? user = _context.Users.FirstOrDefault(u =>
                 u.Username == param.Username || u.Email == param.Username);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(param.Password, user.PasswordHash)) 
-                return Result.Failure("Incorrect username or password");
-
-            await _httpContextAccessor.HttpContext.SignInAsync(user);
-            return Result.Successful();
+                return Task.FromResult(Result.Failure<User>("Incorrect username or password"));
+            
+            return Task.FromResult(Result.Successful(user));
         }
     }
 }
