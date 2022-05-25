@@ -25,8 +25,16 @@
             else
             {
                 <div class="profile-section">
-                    <span>@_userAccessor.User.Username</span>
-                    <img class="profile-image" src="~/images/profile_images/@(_userAccessor.User.ProfileImage).jpeg" alt="Profile picture" />
+                    <div class="profile-section-btn" onclick="toggleDropdown()">
+                        <span>@_userAccessor.User.Username</span>
+                        <img class="profile-image" src="~/images/profile_images/@(_userAccessor.User.ProfileImage).jpeg" alt="Profile picture" />
+                    </div>
+                    <div class="profile-dropdown hidden">
+                        <a href="javascript:void(0)">Profile</a>
+                        <form asp-page="Logout">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </div>
                 </div>
             }
         </nav>

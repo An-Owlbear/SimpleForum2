@@ -19,7 +19,7 @@
   color: inherit;
 }
 
-.navbar a:hover {
+.navbar a:hover, .navbar span:hover {
   color: var(--text-lighter);
   transition: color 0.1s ease;
 }
@@ -40,6 +40,10 @@
   transition: background-color 0.1s ease;
 }
 
+.profile-section {
+  position: relative;
+}
+
 .profile-section span {
   margin-right: 1rem;
 }
@@ -50,6 +54,41 @@
   border-radius: 50px;
 }
 
-.profile-section:hover {
+.profile-section-btn:hover {
   cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 200px;
+  background-color: var(--white);
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 0.875rem 1rem;
+}
+
+::deep .profile-section > .profile-dropdown > * {
+  margin: 0.125rem 0.5rem;
+  width: 100%;
+}
+
+.profile-dropdown a, .profile-dropdown button {
+  color: var(--text);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.profile-dropdown button {
+  background-color: transparent;
+  width: 100%;
+  text-align: left;
+  font-size: 1.25rem;
+}
+
+.profile-dropdown a:hover, .profile-dropdown button:hover {
+  background-color: var(--grey-200);
+  color: var(--text);
+  transition: all 0.1s ease;
 }
