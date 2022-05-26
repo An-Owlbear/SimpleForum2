@@ -26,7 +26,8 @@ public class CurrentUserAccessor : ICurrentUserAccessor
     {
         get
         {
-            string username = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? username = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (username == null) return null;
             return _user ??= _context.Users.Find(username);
         }
     }
