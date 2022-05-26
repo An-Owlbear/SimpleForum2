@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SimpleForum.Data;
 using SimpleForum.Extensions;
+using SimpleForum.Filters;
 using SimpleForum.Interfaces;
 using SimpleForum.Models;
 using SimpleForum.Util;
 
 namespace SimpleForum.Pages;
 
+[Unauthorized]
 public class Register : PageModel
 {
     public PageData Data { get; private set; } = new(null);
