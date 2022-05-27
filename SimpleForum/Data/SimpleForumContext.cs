@@ -8,9 +8,11 @@ public class SimpleForumContext : DbContext
     public SimpleForumContext(DbContextOptions<SimpleForumContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; } = null!;
-
+    public DbSet<ForumThread> Threads { get; set; } = null!;
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>().ToTable("User");
+        modelBuilder.Entity<ForumThread>().ToTable("Thread");
     }
 }

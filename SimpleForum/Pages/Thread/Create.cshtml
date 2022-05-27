@@ -1,0 +1,18 @@
+﻿@page
+@model SimpleForum.Pages.Thread.Create
+@{
+    ViewData["Title"] = "Create thread";
+}
+
+<div class="container">
+    @if (Model.Data?.Error != null)
+    {
+        <div class="error-msg">@Model.Data.Error</div>
+    }
+    <h1>Create a new thread</h1>
+    <form method="post">
+        <input name="title" placeholder="Thread title" />
+        <textarea name="content" placeholder="Opening post"></textarea>
+        <button type="submit">Create thread</button>
+    </form>
+</div>

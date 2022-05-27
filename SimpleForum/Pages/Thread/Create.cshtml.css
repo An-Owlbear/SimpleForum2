@@ -1,0 +1,25 @@
+﻿.container {
+  margin: 2rem auto;
+  max-width: 100%;
+  width: 1000px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+::deep * {
+  margin-bottom: 1rem;
+}
+
+::deep *:last-child, ::deep form > *:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+.container h1 {
+  margin: 0 0 1.5rem 0;
+}
+
+.container button {
+  margin-left: auto;
+  font-size: 1.25rem;
+}
