@@ -95,6 +95,10 @@
   transition: all 0.1s ease;
 }
 
+main {
+  margin: 2rem 0;
+}
+
 @media screen and (max-width: 600px) {
   .navbar {
     padding: 0 1rem;
