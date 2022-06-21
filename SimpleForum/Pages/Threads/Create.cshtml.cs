@@ -7,7 +7,7 @@ using SimpleForum.Models;
 using SimpleForum.Services;
 using SimpleForum.Util;
 
-namespace SimpleForum.Pages.Thread;
+namespace SimpleForum.Pages.Threads;
 
 [Authorize]
 public class Create : PageModel
