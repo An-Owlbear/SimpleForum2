@@ -1,0 +1,16 @@
+﻿.create-thread-container * {
+  margin-bottom: 1rem;
+}
+
+.create-thread-container *:last-child, .create-thread-container form > *:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+.create-thread-container h1 {
+  margin: 0 0 1.5rem 0;
+}
+
+.create-thread-container button {
+  margin-left: auto;
+  font-size: 1.25rem;
+}

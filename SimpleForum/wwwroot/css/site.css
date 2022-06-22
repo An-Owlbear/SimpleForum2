@@ -1,3 +1,4 @@
+/* Colour variables */
 :root {
   --accent-100: hsl(220, 100%, 80%);
   --accent-200: hsl(220, 97%, 75%);
@@ -39,6 +40,7 @@
   --white: hsl(0, 0%, 98%);
 }
 
+/* Fonts */
 /* inter-100 - latin */
 @font-face {
   font-family: 'Inter';
@@ -165,6 +167,7 @@
   url('../fonts/inter-v11-latin-800.svg#Inter') format('svg'); /* Legacy iOS */
 }
 
+/* Default styles */
 body {
   margin: 0;
   font-size: 16px;
@@ -211,6 +214,4 @@ button:hover {
   cursor: pointer;
 }
 
-.hidden {
-  display: none !important;
-}
+/* Thread creation */

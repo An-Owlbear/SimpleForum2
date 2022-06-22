@@ -1,0 +1,20 @@
+﻿.hidden {
+  display: none !important;
+}
+
+.main-container {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 1000px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.error-msg {
+  background-color: var(--red-100);
+  color: var(--red-700);
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  padding: 1rem;
+}

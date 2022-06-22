@@ -32,6 +32,11 @@ builder.Services.Scan(scan => scan
     .AsImplementedInterfaces()
     .WithTransientLifetime());
 
+builder.Services.AddWebOptimizer(pipeline =>
+{
+    pipeline.AddCssBundle("/css/site.css", "css/**/*.css");
+});
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,6 +48,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseWebOptimizer();
 app.UseStaticFiles();
 
 app.UseRouting();
