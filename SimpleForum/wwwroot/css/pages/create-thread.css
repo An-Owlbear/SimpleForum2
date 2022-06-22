@@ -1,4 +1,10 @@
-﻿.create-thread-container * {
+﻿.create-thread-container {
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+.create-thread-container * {
   margin-bottom: 1rem;
 }
 
