@@ -23,7 +23,7 @@ public class Register : PageModel
         if (result.Success && result.Value != null)
         {
             await HttpContext.SignInAsync(result.Value);
-            return RedirectToPage("Index");
+            return RedirectToPage("/Index");
         }
         
         Data = new PageData(result.Error);
