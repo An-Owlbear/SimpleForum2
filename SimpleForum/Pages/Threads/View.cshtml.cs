@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using SimpleForum.Data;
 using SimpleForum.Interfaces;
 using SimpleForum.Models;
@@ -40,7 +41,10 @@ public class View : PageModel
         // Queries the database for a forum thread with the specified Id
         public async Task<Result<ForumThread>> Handle(RequestModel param, CancellationToken cancellationToken = default)
         {
-            ForumThread? thread = await _context.Threads.FindAsync(new object[] { param.ThreadId }, cancellationToken);
+            ForumThread? thread = await _context.Threads
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(t => t.ThreadId == param.ThreadId, cancellationToken);
+
             return thread != null ? Result.Successful(thread) : Result.Failure<ForumThread>("Thread not found");
         }
     }

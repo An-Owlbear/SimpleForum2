@@ -30,4 +30,6 @@ public class User
     public string PasswordHash { get; set; } 
     public DateTime DateJoined { get; set; }
     public string ProfileImage { get; set; }
+
+    public List<ForumThread> Threads { get; set; } = null!;
 }
