@@ -21,7 +21,8 @@ builder.Services.AddDbContext<SimpleForumContext>(options =>
                       throw new InvalidOperationException("Database connection string must be set"));
 });
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
 
