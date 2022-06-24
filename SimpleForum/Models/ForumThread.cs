@@ -30,4 +30,5 @@ public class ForumThread
     public DateTime DatePosted { get; set; }
 
     public User User { get; set; } = null!;
+    public List<ForumReply> Replies { get; set; } = null!;
 }

@@ -5,7 +5,7 @@ namespace SimpleForum.Models;
 public class User
 {
     // Constructor used by EF Core when retrieving users from the database
-    public User(string username, string email, string passwordHash, DateTime dateJoined, string profileImage)
+    private User(string username, string email, string passwordHash, DateTime dateJoined, string profileImage)
     {
         Username = username;
         Email = email;
@@ -32,4 +32,5 @@ public class User
     public string ProfileImage { get; set; }
 
     public List<ForumThread> Threads { get; set; } = null!;
+    public List<ForumReply> Replies { get; set; } = null!;
 }
