@@ -1,25 +1,36 @@
-﻿@page "/threads/{threadId}"
+﻿@page "/threads/{threadId}/{handler?}"
 @model Threads.View
 @{
-    ViewData["Title"] = @Model.Data?.Thread.Title;
+    ViewData["Title"] = @Model.Thread?.Title;
 }
 
 <div class="main-container">
     <div class="thread-header">
-        <h1>@Model.Data?.Thread.Title</h1>
+        <h1>@Model.Thread?.Title</h1>
     </div>
     <div class="thread-reply">
         <div class="reply-profile-container">
-            <img class="reply-profile-image" src="/images/profile_images/@(Model.Data?.Thread.User.ProfileImage).jpeg" />
-            <a href="javascript:void(0)">@Model.Data?.Thread.User.Username</a>
+            <img class="reply-profile-image" src="/images/profile_images/@(Model.Thread?.User.ProfileImage).jpeg" />
+            <a href="javascript:void(0)">@Model.Thread?.User.Username</a>
         </div>
         <div class="reply-content">
             <div class="reply-content-header">
-                <time datetime="@Model.Data?.Thread.DatePosted.ToString("O")">@Model.Data?.Thread.DatePosted.ToString("f")</time>
+                <time datetime="@Model.Thread?.DatePosted.ToString("O")">@Model.Thread?.DatePosted.ToString("f")</time>
                 <div class="divider"></div>
                 <a href="javascript:void(0)">#1</a>
             </div>
-            <p>@Model.Data?.Thread.Content</p>
+            <p>@Model.Thread?.Content</p>
         </div>
     </div>
+    @if (User.Identity is { IsAuthenticated: true })
+    {
+        <form class="reply-form" asp-page-handler="Reply" method="post">
+            @if (@Model.ReplyError != null)
+            {
+                <div class="error-msg">@Model.ReplyError</div>
+            }
+            <textarea name="content" placeholder="Reply content"></textarea>
+            <button type="submit">Reply</button>
+        </form>
+    }
 </div>
