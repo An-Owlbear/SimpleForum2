@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SimpleForum.Data;
-using SimpleForum.Interfaces;
 using SimpleForum.Models;
 using SimpleForum.Services;
 using SimpleForum.Util;
@@ -12,13 +12,17 @@ namespace SimpleForum.Pages.Threads;
 [Authorize]
 public class Create : PageModel
 {
+    private readonly IMediator _mediator;
+
+    public Create(IMediator mediator) => _mediator = mediator;
+    
     public PageData? Data { get; set; }
     
     public void OnGet() { }
 
-    public async Task<IActionResult> OnPost(RequestModel model, [FromServices] IRequestHandler<RequestModel, Result<ForumThread>> handler)
+    public async Task<IActionResult> OnPost(RequestModel model)
     {
-        Result<ForumThread> result = await handler.Handle(model);
+        Result<ForumThread> result = await _mediator.Send(model);
         if (result.Success && result.Value != null)
             return RedirectToPage("/Thread", new { id = result.Value.ThreadId });
 
@@ -28,7 +32,7 @@ public class Create : PageModel
 
     public record PageData(string? Error);
 
-    public record RequestModel(string Title, string Content);
+    public record RequestModel(string Title, string Content) : IRequest<Result<ForumThread>>;
     
     public class Handler : IRequestHandler<RequestModel, Result<ForumThread>>
     {

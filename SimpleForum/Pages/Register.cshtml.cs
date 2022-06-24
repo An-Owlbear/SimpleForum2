@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SimpleForum.Data;
 using SimpleForum.Extensions;
 using SimpleForum.Filters;
-using SimpleForum.Interfaces;
 using SimpleForum.Models;
 using SimpleForum.Util;
 
@@ -13,13 +13,17 @@ namespace SimpleForum.Pages;
 [Unauthorized]
 public class Register : PageModel
 {
+    private readonly IMediator _mediator;
+
+    public Register(IMediator mediator) => _mediator = mediator;
+    
     public PageData Data { get; private set; } = new(null);
 
     public void OnGet() { }
     
-    public async Task<IActionResult> OnPost(RequestModel model, [FromServices] IRequestHandler<RequestModel, Result<User>> handler)
+    public async Task<IActionResult> OnPost(RequestModel model)
     {
-        Result<User> result = await handler.Handle(model);
+        Result<User> result = await _mediator.Send(model);
         if (result.Success && result.Value != null)
         {
             await HttpContext.SignInAsync(result.Value);
@@ -31,8 +35,9 @@ public class Register : PageModel
     }
 
     public record PageData(string? Error);
-    
-    public record RequestModel(string Username, string Email, string Password, string ConfirmPassword);
+
+    public record RequestModel
+        (string Username, string Email, string Password, string ConfirmPassword) : IRequest<Result<User>>;
 
     public class Handler : IRequestHandler<RequestModel, Result<User>>
     {

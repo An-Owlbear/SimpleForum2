@@ -1,12 +1,12 @@
-﻿using SimpleForum.Data;
-using SimpleForum.Interfaces;
+﻿using MediatR;
+using SimpleForum.Data;
 using SimpleForum.Models;
 using SimpleForum.Services;
 using SimpleForum.Util;
 
 namespace SimpleForum.Pages.Threads;
 
-public record ReplyRequest(string ThreadId, string Content);
+public record ReplyRequest(string ThreadId, string Content) : IRequest<Result>;
 
 public class ReplyHandler : IRequestHandler<ReplyRequest, Result>
 {

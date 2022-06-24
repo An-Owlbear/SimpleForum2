@@ -1,7 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SimpleForum.Data;
-using SimpleForum.Interfaces;
 using SimpleForum.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -24,14 +24,8 @@ builder.Services.AddDbContext<SimpleForumContext>(options =>
 builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
-
-// Adds all IRequestHandler classes as transient dependencies
-builder.Services.Scan(scan => scan
-    .FromAssemblyOf<SimpleForumContext>()
-    .AddClasses(c => c.AssignableTo(typeof(IRequestHandler<,>)))
-    .AsImplementedInterfaces()
-    .WithTransientLifetime());
 
 builder.Services.AddWebOptimizer(pipeline =>
 {

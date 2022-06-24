@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SimpleForum.Data;
-using SimpleForum.Interfaces;
 using SimpleForum.Models;
 using SimpleForum.Util;
 
 namespace SimpleForum.Pages.Threads;
 
-public record ViewRequest(string ThreadId);
+public record ViewRequest(string ThreadId) : IRequest<Result<ForumThread>>;
     
 public class ViewHandler : IRequestHandler<ViewRequest, Result<ForumThread>>
 {
