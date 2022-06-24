@@ -1,4 +1,25 @@
 ﻿@page "/threads/{threadId}"
 @model Threads.View
+@{
+    ViewData["Title"] = @Model.Data?.Thread.Title;
+}
 
-@Model.Data?.Thread.Title
+<div class="main-container">
+    <div class="thread-header">
+        <h1>@Model.Data?.Thread.Title</h1>
+    </div>
+    <div class="thread-reply">
+        <div class="reply-profile-container">
+            <img class="reply-profile-image" src="/images/profile_images/@(Model.Data?.Thread.User.ProfileImage).jpeg" />
+            <a href="javascript:void(0)">@Model.Data?.Thread.User.Username</a>
+        </div>
+        <div class="reply-content">
+            <div class="reply-content-header">
+                <time datetime="@Model.Data?.Thread.DatePosted.ToString("O")">@Model.Data?.Thread.DatePosted.ToString("f")</time>
+                <div class="divider"></div>
+                <a href="javascript:void(0)">#1</a>
+            </div>
+            <p>@Model.Data?.Thread.Content</p>
+        </div>
+    </div>
+</div>

@@ -15,3 +15,7 @@
   border-radius: 10px;
   padding: 1rem;
 }
+
+.divider {
+  flex-grow: 1;
+}
