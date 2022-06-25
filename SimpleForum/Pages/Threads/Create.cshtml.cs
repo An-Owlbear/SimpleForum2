@@ -24,7 +24,7 @@ public class Create : PageModel
     {
         Result<ForumThread> result = await _mediator.Send(model);
         if (result.Success && result.Value != null)
-            return RedirectToPage("/Thread", new { id = result.Value.ThreadId });
+            return RedirectToPage("/Threads/View", new { threadId = result.Value.ThreadId });
 
         Data = new PageData(result.Error);
         return Page();
