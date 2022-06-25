@@ -214,4 +214,8 @@ button:hover {
   cursor: pointer;
 }
 
+a {
+  color: var(--accent-500);
+}
+
 /* Thread creation */
