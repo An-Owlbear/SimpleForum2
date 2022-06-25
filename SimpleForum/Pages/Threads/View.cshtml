@@ -1,27 +1,33 @@
 ﻿@page "/threads/{threadId}/{handler?}"
+@using SimpleForum.Models
 @model Threads.View
 @{
-    ViewData["Title"] = @Model.Thread?.Title;
+    ViewData["Title"] = Model.Thread.Title;
 }
 
 <div class="main-container">
     <div class="thread-header">
-        <h1>@Model.Thread?.Title</h1>
+        <h1>@Model.Thread.Title</h1>
     </div>
-    <div class="thread-reply">
-        <div class="reply-profile-container">
-            <img class="reply-profile-image" src="/images/profile_images/@(Model.Thread?.User.ProfileImage).jpeg" />
-            <a href="javascript:void(0)">@Model.Thread?.User.Username</a>
-        </div>
-        <div class="reply-content">
-            <div class="reply-content-header">
-                <time datetime="@Model.Thread?.DatePosted.ToString("O")">@Model.Thread?.DatePosted.ToString("f")</time>
-                <div class="divider"></div>
-                <a href="javascript:void(0)">#1</a>
+    
+    @foreach (IPost post in Model.Thread.Replies.Prepend<IPost>(Model.Thread))
+    {
+        <div class="thread-reply">
+            <div class="reply-profile-container">
+                <img class="reply-profile-image" src="/images/profile_images/@(post.User.ProfileImage).jpeg" />
+                <a href="javascript:void(0)">@post.User.Username</a>
             </div>
-            <p>@Model.Thread?.Content</p>
+            <div class="reply-content">
+                <div class="reply-content-header">
+                    <time datetime="@post.DatePosted.ToString("O")">@post.DatePosted.ToString("f")</time>
+                    <div class="divider"></div>
+                    <a href="javascript:void(0)">#1</a>
+                </div>
+                <p>@post.Content</p>
+            </div>
         </div>
-    </div>
+    }
+    
     @if (User.Identity is { IsAuthenticated: true })
     {
         <form class="reply-form" asp-page-handler="Reply" method="post">

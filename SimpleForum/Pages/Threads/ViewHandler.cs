@@ -22,6 +22,7 @@ public class ViewHandler : IRequestHandler<ViewRequest, Result<ForumThread>>
     {
         ForumThread? thread = await _context.Threads
             .Include(t => t.User)
+            .Include(t => t.Replies)
             .FirstOrDefaultAsync(t => t.ThreadId == param.ThreadId, cancellationToken);
 
         return thread != null ? Result.Successful(thread) : Result.Failure<ForumThread>("Thread not found");

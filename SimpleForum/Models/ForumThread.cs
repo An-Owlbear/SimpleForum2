@@ -2,7 +2,7 @@
 
 namespace SimpleForum.Models;
 
-public class ForumThread
+public class ForumThread : IPost
 {
     private ForumThread(string threadId, string title, string content, string userId, DateTime datePosted)
     {

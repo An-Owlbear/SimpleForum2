@@ -12,7 +12,7 @@ public class View : PageModel
 
     public View(IMediator mediator) => _mediator = mediator;
 
-    public ForumThread? Thread { get; set; }
+    public ForumThread Thread { get; set; } = null!;
     public string? ReplyError { get; set; }
     
     public async Task<IActionResult> OnGet(string threadId)
