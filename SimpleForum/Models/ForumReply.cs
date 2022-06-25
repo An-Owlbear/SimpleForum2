@@ -13,11 +13,11 @@ public class ForumReply
         UserId = userId;
     }
 
-    public ForumReply(string content, string threadId, string userId)
+    public ForumReply(string content, string threadId, string userId, DateTime? dateTime = null)
     {
         ReplyId = Guid.NewGuid().ToString();
         Content = content;
-        DatePosted = DateTime.UtcNow;
+        DatePosted = dateTime ?? DateTime.UtcNow;
         ThreadId = threadId;
         UserId = userId;
     }

@@ -12,12 +12,12 @@ public class ForumThread
         DatePosted = datePosted;
     }
     
-    public ForumThread(string title, string userId)
+    public ForumThread(string title, string userId, DateTime? dateTime = null)
     {
         ThreadId = Guid.NewGuid().ToString();
         Title = title;
         UserId = userId;
-        DatePosted = DateTime.UtcNow;
+        DatePosted = dateTime ?? DateTime.UtcNow;
     }
 
     [Key]

@@ -52,7 +52,7 @@ public class Create : PageModel
                 return Result.Failure<ForumThread>("Title and content must cannot be empty");
 
             ForumThread thread = new(param.Title, _userAccessor.User.Username);
-            ForumReply reply = new(param.Content, thread.ThreadId, _userAccessor.User.Username);
+            ForumReply reply = new(param.Content, thread.ThreadId, _userAccessor.User.Username, thread.DatePosted);
             await _context.Threads.AddAsync(thread, cancellationToken);
             await _context.Replies.AddAsync(reply, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
