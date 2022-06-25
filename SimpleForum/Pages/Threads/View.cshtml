@@ -12,7 +12,7 @@
     
     @foreach (ForumReply reply in Model.Data.Replies)
     {
-        <div class="thread-reply">
+        <div class="thread-reply" id="r@(reply.ReplyId)">
             <div class="reply-profile-container">
                 <img class="reply-profile-image" src="/images/profile_images/@(reply.User.ProfileImage).jpeg" />
                 <a href="javascript:void(0)">@reply.User.Username</a>
@@ -21,7 +21,7 @@
                 <div class="reply-content-header">
                     <time datetime="@reply.DatePosted.ToString("O")">@reply.DatePosted.ToString("f")</time>
                     <div class="divider"></div>
-                    <a href="javascript:void(0)">#1</a>
+                    <a href="@(Url.Page("/Threads/View", new { threadId = reply.ThreadId }) + $"#r{reply.ReplyId}")">permalink</a>
                 </div>
                 <p>@reply.Content</p>
             </div>

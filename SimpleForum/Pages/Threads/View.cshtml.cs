@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SimpleForum.Models;
 using SimpleForum.Util;
 
 namespace SimpleForum.Pages.Threads;
@@ -32,10 +33,14 @@ public class View : PageModel
     public async Task<IActionResult> OnPostReply(string threadId, ReplyPostModel reply)
     {
         if (User.Identity is not { IsAuthenticated: true }) return Unauthorized();
-        Result result = await _mediator.Send(new ReplyRequest(threadId, reply.Content));
+        Result<ForumReply> result = await _mediator.Send(new ReplyRequest(threadId, reply.Content));
         
         // Redirects to reply if successful, else returns error
-        if (result.Success) return RedirectToPage($"/Threads/{threadId}");
+        if (result.Success)
+        {
+            string url = Url.Page("/Threads/View", new { threadId }) + $"#r{result.Value?.ReplyId}";
+            return Redirect(url);
+        }
         
         ReplyError = result.Error;
         return await OnGet(threadId);
