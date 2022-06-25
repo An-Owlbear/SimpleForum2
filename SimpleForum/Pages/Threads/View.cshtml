@@ -2,28 +2,28 @@
 @using SimpleForum.Models
 @model Threads.View
 @{
-    ViewData["Title"] = Model.Thread.Title;
+    ViewData["Title"] = Model.Data.Title;
 }
 
 <div class="main-container">
     <div class="thread-header">
-        <h1>@Model.Thread.Title</h1>
+        <h1>@Model.Data.Title</h1>
     </div>
     
-    @foreach (IPost post in Model.Thread.Replies.Prepend<IPost>(Model.Thread))
+    @foreach (ForumReply reply in Model.Data.Replies)
     {
         <div class="thread-reply">
             <div class="reply-profile-container">
-                <img class="reply-profile-image" src="/images/profile_images/@(post.User.ProfileImage).jpeg" />
-                <a href="javascript:void(0)">@post.User.Username</a>
+                <img class="reply-profile-image" src="/images/profile_images/@(reply.User.ProfileImage).jpeg" />
+                <a href="javascript:void(0)">@reply.User.Username</a>
             </div>
             <div class="reply-content">
                 <div class="reply-content-header">
-                    <time datetime="@post.DatePosted.ToString("O")">@post.DatePosted.ToString("f")</time>
+                    <time datetime="@reply.DatePosted.ToString("O")">@reply.DatePosted.ToString("f")</time>
                     <div class="divider"></div>
                     <a href="javascript:void(0)">#1</a>
                 </div>
-                <p>@post.Content</p>
+                <p>@reply.Content</p>
             </div>
         </div>
     }
@@ -31,7 +31,7 @@
     @if (User.Identity is { IsAuthenticated: true })
     {
         <form class="reply-form" asp-page-handler="Reply" method="post">
-            @if (@Model.ReplyError != null)
+            @if (Model.ReplyError != null)
             {
                 <div class="error-msg">@Model.ReplyError</div>
             }

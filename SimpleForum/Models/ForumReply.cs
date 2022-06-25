@@ -2,7 +2,7 @@
 
 namespace SimpleForum.Models;
 
-public class ForumReply : IPost
+public class ForumReply
 {
     private ForumReply(string replyId, string content, DateTime datePosted, string threadId, string userId)
     {
