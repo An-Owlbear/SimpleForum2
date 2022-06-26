@@ -16,7 +16,7 @@ public class Create : PageModel
 
     public Create(IMediator mediator) => _mediator = mediator;
     
-    public PageData? Data { get; set; }
+    public string? CreateError { get; set; }
     
     public void OnGet() { }
 
@@ -26,13 +26,11 @@ public class Create : PageModel
         if (result.Success && result.Value != null)
             return RedirectToPage("/Threads/View", new { threadId = result.Value.ThreadId });
 
-        Data = new PageData(result.Error);
+        CreateError = result.Error;
         return Page();
     }
 
-    public record PageData(string? Error);
-
-    public record RequestModel(string Title, string Content) : IRequest<Result<ForumThread>>;
+    public record RequestModel(string Title, string Content, string Forum) : IRequest<Result<ForumThread>>;
     
     public class Handler : IRequestHandler<RequestModel, Result<ForumThread>>
     {
@@ -51,7 +49,7 @@ public class Create : PageModel
             if (String.IsNullOrWhiteSpace(param.Title) || String.IsNullOrWhiteSpace(param.Content))
                 return Result.Failure<ForumThread>("Title and content must cannot be empty");
 
-            ForumThread thread = new(param.Title, _userAccessor.User.Username);
+            ForumThread thread = new(param.Title, _userAccessor.User.Username, "General");
             ForumReply reply = new(param.Content, thread.ThreadId, _userAccessor.User.Username, thread.DatePosted);
             await _context.Threads.AddAsync(thread, cancellationToken);
             await _context.Replies.AddAsync(reply, cancellationToken);

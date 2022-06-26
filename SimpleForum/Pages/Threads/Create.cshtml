@@ -5,9 +5,9 @@
 }
 
 <div class="main-container create-thread-container">
-    @if (Model.Data?.Error != null)
+    @if (Model.CreateError != null)
     {
-        <div class="error-msg">@Model.Data.Error</div>
+        <div class="error-msg">@Model.CreateError</div>
     }
     <h1>Create a new thread</h1>
     <form method="post">
