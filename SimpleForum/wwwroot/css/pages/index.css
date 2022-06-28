@@ -1,0 +1,11 @@
+﻿.forum-list-item {
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  background-color: var(--white);
+}
+
+.forum-list-item a {
+  text-decoration: none;
+  font-size: 1.125rem;
+}
