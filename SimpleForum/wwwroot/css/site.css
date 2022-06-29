@@ -216,6 +216,7 @@ button:hover {
 
 a {
   color: var(--accent-500);
+  text-decoration: none;
 }
 
 /* Thread creation */

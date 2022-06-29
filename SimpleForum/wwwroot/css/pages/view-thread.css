@@ -19,10 +19,6 @@
   margin-right: 3rem;
 }
 
-.reply-profile-container a {
-  text-decoration: none;
-}
-
 .reply-profile-image {
   height: 5rem;
   width: 5rem;
@@ -39,10 +35,6 @@
   flex-direction: row;
   font-size: 0.9rem;
   color: var(--text-light);
-}
-
-.reply-content-header a {
-  text-decoration: none;
 }
 
 .reply-form {
