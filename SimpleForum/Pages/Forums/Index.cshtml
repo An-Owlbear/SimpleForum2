@@ -1,0 +1,16 @@
+﻿@page "{forumId}"
+@using SimpleForum.Models
+@model SimpleForum.Pages.Forums.Index
+@{
+    ViewData["Title"] = Model.Data.Name;
+}
+
+<div class="main-container">
+    <h1><a asp-page="/Index">Home</a> > @Model.Data.Name</h1>
+    @foreach (ForumThread thread in Model.Data.Threads)
+    {
+        <div class="thread-list-item">
+            <a asp-page="/Threads/View" asp-route-threadId="@thread.ThreadId">@thread.Title</a>
+        </div>
+    }
+</div>

@@ -10,7 +10,7 @@
     @foreach (Forum forum in Model.Data.Forums)
     {
         <div class="forum-list-item">
-            <a href="javascript:void(0)">@forum.Name</a>
+            <a asp-page="/Forums/Index" asp-route-forumId="@forum.ForumId">@forum.Name</a>
         </div>
     }
 </div>
