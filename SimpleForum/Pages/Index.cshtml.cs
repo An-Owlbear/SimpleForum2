@@ -10,7 +10,7 @@ public class IndexModel : PageModel
 {
     private readonly IMediator _mediator;
 
-    public ForumsResponse Data { get; set; }
+    public ForumsResponse Data { get; set; } = null!;
 
     public IndexModel(IMediator mediator) => _mediator = mediator;
 

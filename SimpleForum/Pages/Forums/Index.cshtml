@@ -6,7 +6,11 @@
 }
 
 <div class="main-container">
-    <h1><a asp-page="/Index">Home</a> > @Model.Data.Name</h1>
+    <div class="thread-list-header">
+        <h1><a asp-page="/Index">Home</a> > @Model.Data.Name</h1>
+        <div class="divider"></div>
+        <a class="create-thread-btn" asp-page="/Forums/Create" asp-route-forumId="@Model.Data.ForumId">Create thread</a>
+    </div>
     @foreach (ForumThread thread in Model.Data.Threads)
     {
         <div class="thread-list-item">

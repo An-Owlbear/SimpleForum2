@@ -30,7 +30,7 @@ public class Index : PageModel
 
     public record ViewForumRequest(string ForumID) : IRequest<Result<ViewForumResponse>>;
 
-    public record ViewForumResponse(string Name, IEnumerable<ForumThread> Threads);
+    public record ViewForumResponse(string ForumId, string Name, IEnumerable<ForumThread> Threads);
 
     public class ViewForumHandler : IRequestHandler<ViewForumRequest, Result<ViewForumResponse>>
     {
@@ -50,7 +50,7 @@ public class Index : PageModel
 
             return forum == null
                 ? Result.Failure<ViewForumResponse>("Forum not found")
-                : Result.Successful(new ViewForumResponse(forum.Name, forum.Threads));
+                : Result.Successful(new ViewForumResponse(forum.ForumId, forum.Name, forum.Threads));
         }
     }
 }
