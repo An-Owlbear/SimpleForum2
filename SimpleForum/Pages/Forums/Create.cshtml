@@ -1,0 +1,26 @@
+﻿@page "/Forums/{forumId}/Create"
+@model SimpleForum.Pages.Forums.Create
+@{
+    ViewData["Title"] = "Create thread";
+}
+
+<div class="main-container">
+    <ul class="create-thread-path">
+        <li><a asp-page="/Index">Home</a></li>
+        <li><a asp-page="/Forums/Index" asp-route-forumId="@Model.Data.ForumId">@Model.Data.ForumName</a></li>
+        <li><span>Create thread</span></li>
+    </ul>
+    <div class="create-thread-container">
+        @if (Model.CreateError != null)
+        {
+            <div class="error-msg">@Model.CreateError</div>
+        }
+        <h1>Create a new thread</h1>
+        <form method="post">
+            <input name="title" placeholder="Thread title" />
+            <textarea name="content" placeholder="Opening post"></textarea>
+            <input type="hidden" name="forumId" value="@Model.Data.ForumId" />
+            <button type="submit">Create thread</button>
+        </form>
+    </div>
+</div>
