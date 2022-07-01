@@ -1,0 +1,9 @@
+﻿@page "{userId}"
+@model SimpleForum.Pages.Users.Index
+@{
+    ViewData["Title"] = Model.Data.Username;
+}
+
+<div class="main-container">
+    @Model.Data.Username
+</div>
