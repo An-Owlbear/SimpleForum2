@@ -29,7 +29,7 @@
                         <img class="profile-image" src="~/images/profile_images/@(_userAccessor.User.ProfileImage).jpeg" alt="Profile picture" />
                     </div>
                     <div class="profile-dropdown hidden">
-                        <a href="javascript:void(0)">Profile</a>
+                        <a asp-page="/Users/Index" asp-route-userId="@_userAccessor.User.Username">Profile</a>
                         <form asp-page="/Logout">
                             <button type="submit">Logout</button>
                         </form>
