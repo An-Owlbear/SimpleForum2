@@ -1,5 +1,6 @@
 ﻿@page "/threads/{threadId}/{handler?}"
 @using SimpleForum.Models
+@using SimpleForum.Extensions
 @model Threads.View
 @{
     ViewData["Title"] = Model.Data.Title;
@@ -14,7 +15,7 @@
     {
         <div class="thread-reply" id="r@(reply.ReplyId)">
             <div class="reply-profile-container">
-                <img class="reply-profile-image" src="/images/profile_images/@(reply.User.ProfileImage).jpeg" />
+                <img class="reply-profile-image" src="@Html.ProfileImgUrl(reply.User.ProfileImage)" />
                 <a href="javascript:void(0)">@reply.User.Username</a>
             </div>
             <div class="reply-content">

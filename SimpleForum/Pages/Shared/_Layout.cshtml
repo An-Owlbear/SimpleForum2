@@ -1,5 +1,6 @@
 ﻿@using SimpleForum.Services
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using SimpleForum.Extensions
 @inject ICurrentUserAccessor _userAccessor;
 
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
                 <div class="profile-section">
                     <div class="profile-section-btn" onclick="toggleDropdown()">
                         <span>@_userAccessor.User.Username</span>
-                        <img class="profile-image" src="~/images/profile_images/@(_userAccessor.User.ProfileImage).jpeg" alt="Profile picture" />
+                        <img class="profile-image" src="@Html.ProfileImgUrl(_userAccessor.User.ProfileImage)" alt="Profile picture" />
                     </div>
                     <div class="profile-dropdown hidden">
                         <a asp-page="/Users/Index" asp-route-userId="@_userAccessor.User.Username">Profile</a>
