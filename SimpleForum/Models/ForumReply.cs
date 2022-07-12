@@ -4,20 +4,23 @@ namespace SimpleForum.Models;
 
 public class ForumReply
 {
-    private ForumReply(string replyId, string content, DateTime datePosted, string threadId, string userId)
+    private ForumReply(string replyId, string content, DateTime datePosted, bool isOpeningPost, string threadId,
+        string userId)
     {
         ReplyId = replyId;
         Content = content;
         DatePosted = datePosted;
+        IsOpeningPost = isOpeningPost;
         ThreadId = threadId;
         UserId = userId;
     }
 
-    public ForumReply(string content, string threadId, string userId, DateTime? dateTime = null)
+    public ForumReply(string content, bool isOpeningPost, string threadId, string userId, DateTime? dateTime = null)
     {
         ReplyId = Guid.NewGuid().ToString();
         Content = content;
         DatePosted = dateTime ?? DateTime.UtcNow;
+        IsOpeningPost = isOpeningPost;
         ThreadId = threadId;
         UserId = userId;
     }
@@ -26,6 +29,7 @@ public class ForumReply
     public string ReplyId { get; set; }
     public string Content { get; set; }
     public DateTime DatePosted { get; set; }
+    public bool IsOpeningPost { get; set; }
     public string ThreadId { get; set; }
     public string UserId { get; set; }
 

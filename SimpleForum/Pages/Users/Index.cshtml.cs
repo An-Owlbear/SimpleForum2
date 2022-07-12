@@ -67,6 +67,7 @@ public class Index : PageModel
                 .ThenInclude(t => t.Forum)
                 .Include(u => u.Replies
                     .OrderByDescending(r => r.DatePosted)
+                    .Where(r => !r.IsOpeningPost)
                     .Take(5))
                 .ThenInclude(r => r.Thread)
                 .ThenInclude(t => t.Forum)
