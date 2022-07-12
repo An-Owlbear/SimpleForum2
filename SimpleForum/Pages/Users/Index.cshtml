@@ -1,9 +1,44 @@
 ﻿@page "{userId}"
+@using SimpleForum.Extensions
+@using SimpleForum.Models
 @model SimpleForum.Pages.Users.Index
 @{
     ViewData["Title"] = Model.Data.Username;
 }
 
-<div class="main-container">
-    @Model.Data.Username
+<div class="main-container main-profile-container">
+    <div class="user-info">
+        <img src="@Html.ProfileImgUrl(Model.Data.ProfileImage)" alt="Profile picture of @Model.Data.Username" />
+        <h2 class="user-info-name">@Model.Data.Username</h2>
+        <p>Joined: @Model.Data.DateJoined.ToString("d")</p>
+    </div>
+    <div class="profile-page-section">
+        <div class="profile-page-section-header">
+            <h1>Recent threads</h1>
+            <a href="javascript:void(0)">View all</a>
+        </div>
+        @foreach (ForumThread thread in Model.Data.RecentThreads)
+        {
+            <div class="profile-recent-thread">
+                <a asp-page="/Threads/View" asp-route-threadId="@thread.ThreadId">@thread.Title</a>
+                <div class="divider"></div>
+                <span>Posted in: <a asp-page="/Forums/Index" asp-route-forumId="@thread.ForumId">@thread.Forum.Name</a></span>
+            </div>
+        }
+    </div>
+    <div class="profile-page-section">
+        <div class="profile-page-section-header">
+            <h1>Recent comments</h1>
+            <a href="javascript:void(0)">View all</a>
+        </div>
+        @foreach (ForumReply reply in Model.Data.RecentReplies)
+        {
+            <div class="profile-recent-reply">
+                <a class="recent-reply-content" href="javascript:void(0)">@reply.Content</a>
+                <div class="recent-reply-links">
+                    <span>Replying to: <a asp-page="/Threads/View" asp-route-threadId="@reply.ThreadId">@reply.Thread.Title</a></span>
+                </div>
+            </div>
+        }
+    </div>
 </div>
