@@ -34,7 +34,7 @@
         @foreach (ForumReply reply in Model.Data.RecentReplies)
         {
             <div class="profile-recent-reply">
-                <a class="recent-reply-content" href="javascript:void(0)">@reply.Content</a>
+                <a class="recent-reply-content" asp-page="/Posts/Index" asp-route-id="@reply.ReplyId">@reply.Content</a>
                 <div class="recent-reply-links">
                     <span>Replying to: <a asp-page="/Threads/View" asp-route-threadId="@reply.ThreadId">@reply.Thread.Title</a></span>
                 </div>
