@@ -3,7 +3,7 @@ using SimpleForum.Data;
 using SimpleForum.Models;
 using SimpleForum.Util;
 
-namespace SimpleForum.Pages.Forums;
+namespace SimpleForum.Queries.Forums;
 
 public record CreateFormRequest(string ForumId) : IRequest<Result<CreateFormResponse>>;
 

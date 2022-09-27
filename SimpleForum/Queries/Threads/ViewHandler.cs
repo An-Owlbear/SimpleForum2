@@ -4,7 +4,7 @@ using SimpleForum.Data;
 using SimpleForum.Models;
 using SimpleForum.Util;
 
-namespace SimpleForum.Pages.Threads;
+namespace SimpleForum.Queries.Threads;
 
 public record ViewRequest(string ThreadId) : IRequest<Result<ViewResponse>>;
 

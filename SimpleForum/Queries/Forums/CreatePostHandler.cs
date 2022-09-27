@@ -4,7 +4,7 @@ using SimpleForum.Models;
 using SimpleForum.Services;
 using SimpleForum.Util;
 
-namespace SimpleForum.Pages.Forums;
+namespace SimpleForum.Queries.Forums;
 
 public record CreatePostRequest(string Title, string Content, string ForumId) : IRequest<Result<ForumThread>>;
     

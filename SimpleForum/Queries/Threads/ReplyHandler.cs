@@ -4,7 +4,7 @@ using SimpleForum.Models;
 using SimpleForum.Services;
 using SimpleForum.Util;
 
-namespace SimpleForum.Pages.Threads;
+namespace SimpleForum.Queries.Threads;
 
 public record ReplyRequest(string ThreadId, string Content) : IRequest<Result<ForumReply>>;
 

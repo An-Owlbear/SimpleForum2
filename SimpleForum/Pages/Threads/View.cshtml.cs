@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SimpleForum.Models;
+using SimpleForum.Queries.Threads;
 using SimpleForum.Util;
 
 namespace SimpleForum.Pages.Threads;
