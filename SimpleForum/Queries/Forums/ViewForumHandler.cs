@@ -24,7 +24,7 @@ public class ViewForumHandler : IRequestHandler<ViewForumRequest, Result<ViewFor
     {
         // Retrieves forum, returning an error if null, and the name and replies if not
         Forum? forum = await _context.Forums
-            .Include(f => f.Threads)
+            .Include(f => f.Threads.Where(t => t.UserId != Constants.DeletedUser.Id))
             .FirstOrDefaultAsync(f => f.ForumId == request.ForumID, cancellationToken);
 
         return forum == null
