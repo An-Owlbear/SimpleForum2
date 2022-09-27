@@ -16,12 +16,23 @@
         <h1>@Model.Data.Title</h1>
     </div>
     
-    <div class="thread-reply">
+    <div class="thread-reply" id="op">
         <div class="reply-profile-container">
             <img class="reply-profile-image" src="@Html.ProfileImgUrl(Model.Data.User.ProfileImage)" />
             <a asp-page="/Users/Index" asp-route-userId="@Model.Data.UserId">@Model.Data.User.Username</a>
         </div>
         <div class="reply-content">
+            <div class="reply-content-header">
+                <time datetime="@Model.Data.DatePosted.ToString("O")">@Model.Data.DatePosted.ToString("f")</time>
+                <div class="divider"></div>
+                @if (_userAccessor.User?.Username == Model.Data.UserId)
+                {
+                    <form asp-page="/Threads/Delete" asp-route-id="@Model.Data.ThreadId" method="post">
+                        <button class="link-style-btn" type="submit">Delete Thread</button>
+                    </form>
+                }
+                <a href="@(Url.Page("/Threads/View", new { threadId = Model.Data.ThreadId }) + $"#op")">Permalink</a>
+            </div>
             <p>@Model.Data.Content</p>
         </div>
     </div>
