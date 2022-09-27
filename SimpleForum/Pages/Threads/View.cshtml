@@ -16,6 +16,16 @@
         <h1>@Model.Data.Title</h1>
     </div>
     
+    <div class="thread-reply">
+        <div class="reply-profile-container">
+            <img class="reply-profile-image" src="@Html.ProfileImgUrl(Model.Data.User.ProfileImage)" />
+            <a asp-page="/Users/Index" asp-route-userId="@Model.Data.UserId">@Model.Data.User.Username</a>
+        </div>
+        <div class="reply-content">
+            <p>@Model.Data.Content</p>
+        </div>
+    </div>
+    
     @foreach (ForumReply reply in Model.Data.Replies.Where(r => r.UserId != Constants.DeletedUser.Id))
     {
         <div class="thread-reply" id="r@(reply.ReplyId)">

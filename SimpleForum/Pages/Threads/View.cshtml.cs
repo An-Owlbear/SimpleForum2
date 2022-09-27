@@ -13,13 +13,13 @@ public class View : PageModel
 
     public View(IMediator mediator) => _mediator = mediator;
 
-    public ViewResponse Data { get; set; } = null!;
+    public ForumThread Data { get; set; } = null!;
     public string? ReplyError { get; set; }
     
     public async Task<IActionResult> OnGet(string threadId)
     {
         // Retrieves thread, returning 404 if not found
-        Result<ViewResponse> result = await _mediator.Send(new ViewRequest(threadId));
+        Result<ForumThread> result = await _mediator.Send(new ViewRequest(threadId));
         if (result.Success && result.Value != null)
         {
             Data = result.Value;

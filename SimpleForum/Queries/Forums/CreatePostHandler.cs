@@ -28,10 +28,8 @@ public class CreatePostHandler : IRequestHandler<CreatePostRequest, Result<Forum
         Forum? forum = await _context.Forums.FindAsync(new object[] { param.ForumId }, cancellationToken);
         if (forum == null) return Result.Failure<ForumThread>("Forum not found");
 
-        ForumThread thread = new(param.Title, _userAccessor.User.Username, forum.ForumId);
-        ForumReply reply = new(param.Content, true, thread.ThreadId, _userAccessor.User.Username, thread.DatePosted);
+        ForumThread thread = new(param.Title, _userAccessor.User.Username, forum.ForumId, param.Content);
         await _context.Threads.AddAsync(thread, cancellationToken);
-        await _context.Replies.AddAsync(reply, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return Result.Successful(thread);
     }
