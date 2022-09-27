@@ -1,6 +1,11 @@
 ﻿@page "/threads/{threadId}/{handler?}"
 @using SimpleForum.Models
 @using SimpleForum.Extensions
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using SimpleForum.Services
+@using SimpleForum.Util
+@inject ICurrentUserAccessor _userAccessor;
 @model Threads.View
 @{
     ViewData["Title"] = Model.Data.Title;
@@ -11,7 +16,7 @@
         <h1>@Model.Data.Title</h1>
     </div>
     
-    @foreach (ForumReply reply in Model.Data.Replies)
+    @foreach (ForumReply reply in Model.Data.Replies.Where(r => r.UserId != Constants.DeletedUser.Id))
     {
         <div class="thread-reply" id="r@(reply.ReplyId)">
             <div class="reply-profile-container">
@@ -22,7 +27,13 @@
                 <div class="reply-content-header">
                     <time datetime="@reply.DatePosted.ToString("O")">@reply.DatePosted.ToString("f")</time>
                     <div class="divider"></div>
-                    <a href="@(Url.Page("/Threads/View", new { threadId = reply.ThreadId }) + $"#r{reply.ReplyId}")">permalink</a>
+                    @if (_userAccessor.User?.Username == reply.UserId)
+                    {
+                        <form asp-page="/Posts/Delete" asp-route-id="@reply.ReplyId" asp-route-redirectUrl="@Request.GetEncodedUrl()" method="post">
+                            <button class="link-style-btn" type="submit">Delete</button>
+                        </form>
+                    }
+                    <a href="@(Url.Page("/Threads/View", new { threadId = reply.ThreadId }) + $"#r{reply.ReplyId}")">Permalink</a>
                 </div>
                 <p>@reply.Content</p>
             </div>

@@ -37,6 +37,14 @@
   color: var(--text-light);
 }
 
+.reply-content-header > * {
+  margin-right: 1rem;
+}
+
+.reply-content-header:last-child {
+  margin-right: 0;
+}
+
 .reply-form {
   margin-top: 2rem;
 }

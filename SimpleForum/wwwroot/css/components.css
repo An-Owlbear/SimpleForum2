@@ -19,3 +19,16 @@
 .divider {
   flex-grow: 1;
 }
+
+.link-style-btn {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--accent-500);
+  font-size: inherit;
+  padding: 0;
+}
+
+.link-style-btn:hover {
+  background: none;
+}
