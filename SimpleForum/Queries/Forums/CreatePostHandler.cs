@@ -21,12 +21,12 @@ public class CreatePostHandler : IRequestHandler<CreatePostRequest, Result<Forum
 
     public async Task<Result<ForumThread>> Handle(CreatePostRequest param, CancellationToken cancellationToken)
     {
-        if (_userAccessor.User == null) return Result.Failure<ForumThread>("User not signed in");
+        if (_userAccessor.User == null) return Result.Failure<ForumThread>("User not signed in", ErrorType.Unauthorized);
         if (String.IsNullOrWhiteSpace(param.Title) || String.IsNullOrWhiteSpace(param.Content))
-            return Result.Failure<ForumThread>("Title and content must cannot be empty");
+            return Result.Failure<ForumThread>("Title and content must cannot be empty", ErrorType.BadRequest);
 
         Forum? forum = await _context.Forums.FindAsync(new object[] { param.ForumId }, cancellationToken);
-        if (forum == null) return Result.Failure<ForumThread>("Forum not found");
+        if (forum == null) return Result.Failure<ForumThread>("Forum not found", ErrorType.NotFound);
 
         ForumThread thread = new(param.Title, _userAccessor.User.Username, forum.ForumId, param.Content);
         await _context.Threads.AddAsync(thread, cancellationToken);

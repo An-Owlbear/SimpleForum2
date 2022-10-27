@@ -43,7 +43,7 @@ public class View : PageModel
             return Redirect(url);
         }
         
-        ReplyError = result.Error;
+        ReplyError = result.Error.Detail;
         return await OnGet(threadId);
     }
 }

@@ -29,7 +29,7 @@ public class Login : PageModel
             return RedirectToPage("/Index");
         }
 
-        Data = new PageData(result.Error);
+        Data = new PageData(result.Error.Detail);
         return Page();
     }
 
@@ -52,7 +52,7 @@ public class Login : PageModel
                 u.Username == param.Username || u.Email == param.Username);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(param.Password, user.PasswordHash)) 
-                return Task.FromResult(Result.Failure<User>("Incorrect username or password"));
+                return Task.FromResult(Result.Failure<User>("Incorrect username or password", ErrorType.BadRequest));
             
             return Task.FromResult(Result.Successful(user));
         }

@@ -30,7 +30,7 @@ public class Register : PageModel
             return RedirectToPage("/Index");
         }
         
-        Data = new PageData(result.Error);
+        Data = new PageData(result.Error.Detail);
         return Page();
     }
 
@@ -52,14 +52,14 @@ public class Register : PageModel
         {
             // Checks given data for errors and signs up user if there is none
             if (String.IsNullOrEmpty(param.Email) || String.IsNullOrEmpty(param.Username) || String.IsNullOrEmpty(param.Password))
-                return Result.Failure<User>("Please enter all details");
+                return Result.Failure<User>("Please enter all details", ErrorType.BadRequest);
 
             if (!Regex.IsMatch(param.Email, @"^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"))
-                return Result.Failure<User>("Please enter a valid email address");
+                return Result.Failure<User>("Please enter a valid email address", ErrorType.BadRequest);
 
-            if (param.Password != param.ConfirmPassword) return Result.Failure<User>("The entered passwords do not match");
+            if (param.Password != param.ConfirmPassword) return Result.Failure<User>("The entered passwords do not match", ErrorType.BadRequest);
 
-            if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure<User>("The entered email is in use");
+            if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure<User>("The entered email is in use", ErrorType.BadRequest);
 
             User userToAdd = new (param.Username, param.Email, param.Password);
             await _context.Users.AddAsync(userToAdd, cancellationToken);

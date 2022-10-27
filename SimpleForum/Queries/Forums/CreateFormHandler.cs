@@ -23,7 +23,7 @@ public class CreateFormHandler : IRequestHandler<CreateFormRequest, Result<Creat
         // Retrieves forum, returning an error if none found
         Forum? forum = await _context.Forums.FindAsync(new object[] { request.ForumId }, cancellationToken);
         return forum == null
-            ? Result.Failure<CreateFormResponse>("Forum not found")
+            ? Result.Failure<CreateFormResponse>("Forum not found", ErrorType.NotFound)
             : Result.Successful(new CreateFormResponse(forum.ForumId, forum.Name));
     }
 }

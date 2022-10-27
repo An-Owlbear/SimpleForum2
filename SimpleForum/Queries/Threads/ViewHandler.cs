@@ -25,7 +25,7 @@ public class ViewHandler : IRequestHandler<ViewRequest, Result<ForumThread>>
             .Include(t => t.Replies)
             .FirstOrDefaultAsync(t => t.ThreadId == param.ThreadId, cancellationToken);
 
-        if (thread == null) return Result.Failure<ForumThread>("Thread not found");
+        if (thread == null) return Result.Failure<ForumThread>("Thread not found", ErrorType.NotFound);
 
         return Result.Successful(thread);
     }

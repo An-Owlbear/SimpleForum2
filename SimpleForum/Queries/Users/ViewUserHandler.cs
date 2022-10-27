@@ -51,7 +51,7 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
             .FirstOrDefaultAsync(u => u.Username == request.UserId, cancellationToken);
 
         return user == null
-            ? Result.Failure<ViewUserResponse>("User not found")
+            ? Result.Failure<ViewUserResponse>("User not found", ErrorType.NotFound)
             : Result.Successful(new ViewUserResponse(user));
     }
 }

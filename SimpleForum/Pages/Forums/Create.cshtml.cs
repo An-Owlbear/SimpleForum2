@@ -37,7 +37,7 @@ public class Create : PageModel
         if (result.Success && result.Value != null)
             return RedirectToPage("/Threads/View", new { threadId = result.Value.ThreadId });
 
-        CreateError = result.Error;
+        CreateError = result.Error.Detail;
         return Page();
     }
 }

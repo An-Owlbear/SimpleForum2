@@ -21,8 +21,8 @@ public class ReplyHandler : IRequestHandler<ReplyRequest, Result<ForumReply>>
 
     public async Task<Result<ForumReply>> Handle(ReplyRequest param, CancellationToken cancellationToken = default)
     {
-        if (_userAccessor.User == null) return Result.Failure<ForumReply>("User not signed in");
-        if (String.IsNullOrWhiteSpace(param.Content)) return Result.Failure<ForumReply>("Reply cannot be blank");
+        if (_userAccessor.User == null) return Result.Failure<ForumReply>("User not signed in", ErrorType.Unauthorized);
+        if (String.IsNullOrWhiteSpace(param.Content)) return Result.Failure<ForumReply>("Reply cannot be blank", ErrorType.BadRequest);
 
         ForumReply reply = new ForumReply(param.Content, param.ThreadId, _userAccessor.User.Username);
         await _context.Replies.AddAsync(reply, cancellationToken);

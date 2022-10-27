@@ -28,7 +28,7 @@ public class ViewForumHandler : IRequestHandler<ViewForumRequest, Result<ViewFor
             .FirstOrDefaultAsync(f => f.ForumId == request.ForumID, cancellationToken);
 
         return forum == null
-            ? Result.Failure<ViewForumResponse>("Forum not found")
+            ? Result.Failure<ViewForumResponse>("Forum not found", ErrorType.NotFound)
             : Result.Successful(new ViewForumResponse(forum.ForumId, forum.Name, forum.Threads));
     }
 }

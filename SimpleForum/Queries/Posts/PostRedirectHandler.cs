@@ -21,7 +21,7 @@ public class PostRedirectHandler : IRequestHandler<PostRedirectRequest, Result<P
     public async Task<Result<PostRedirectResponse>> Handle(PostRedirectRequest request, CancellationToken cancellationToken)
     {
         ForumReply? reply = await _context.Replies.FindAsync(request.Id);
-        if (reply == null) return Result.Failure<PostRedirectResponse>("Post not found");
+        if (reply == null) return Result.Failure<PostRedirectResponse>("Post not found", ErrorType.NotFound);
         return Result.Successful(new PostRedirectResponse(reply.ThreadId, 0, reply.ReplyId));
     }
 }

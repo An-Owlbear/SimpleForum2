@@ -22,8 +22,8 @@ public class DeletePostHandler : IRequestHandler<DeletePostRequest, Result>
     public async Task<Result> Handle(DeletePostRequest request, CancellationToken cancellationToken)
     {
         ForumReply? reply = await _context.Replies.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (reply == null) return Result.Failure("Post not found");
-        if (reply.UserId != _userAccessor.User?.Username) return Result.Failure("Permission denied");
+        if (reply == null) return Result.Failure("Post not found", ErrorType.NotFound);
+        if (reply.UserId != _userAccessor.User?.Username) return Result.Failure("Permission denied", ErrorType.Forbidden);
         reply.Content = "";
         reply.UserId = Constants.DeletedUser.Id;
         await _context.SaveChangesAsync(cancellationToken);
