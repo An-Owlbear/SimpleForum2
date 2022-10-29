@@ -33,4 +33,6 @@ public class User
 
     public List<ForumThread> Threads { get; set; } = null!;
     public List<ForumReply> Replies { get; set; } = null!;
+    public List<ProfileComment> PostedProfileComments { get; set; } = null!;
+    public List<ProfileComment> ReceivedProfileComments { get; set; } = null!;
 }
