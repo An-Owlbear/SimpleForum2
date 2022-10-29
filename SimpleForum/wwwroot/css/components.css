@@ -32,3 +32,45 @@
 .link-style-btn:hover {
   background: none;
 }
+
+.reply {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.reply-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 3rem;
+}
+
+.reply-profile-image {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.reply-content {
+  flex-grow: 1;
+}
+
+.reply-content-header {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.reply-content-header > * {
+  margin-right: 1.5rem;
+}
+
+.reply-content-header > *:last-child {
+  margin-right: 0;
+}
