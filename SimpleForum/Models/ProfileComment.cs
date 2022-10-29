@@ -11,6 +11,15 @@ public class ProfileComment
         RecipientProfileId = recipientProfileId;
     }
 
+    public ProfileComment(string content, string userId, string recipientProfileId, DateTime? datePosted = null)
+    {
+        ProfileCommentId = Guid.NewGuid().ToString();
+        Content = content;
+        DatePosted = datePosted ?? DateTime.UtcNow;
+        UserId = userId;
+        RecipientProfileId = recipientProfileId;
+    }
+
     public string ProfileCommentId { get; set; }
     public string Content { get; set; }
     public DateTime DatePosted { get; set; }

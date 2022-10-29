@@ -74,3 +74,19 @@
 .reply-content-header > *:last-child {
   margin-right: 0;
 }
+
+.reply-form {
+  margin-top: 2rem;
+}
+
+.reply-form textarea {
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.reply-form button {
+  margin-left: auto;
+}

@@ -76,3 +76,8 @@
   grid-column-start: 1;
   grid-column-end: 3;
 }
+
+.reply-form.profile-comment-form {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
