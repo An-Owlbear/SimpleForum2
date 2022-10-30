@@ -48,7 +48,7 @@
         <h1>Profile comments</h1>
         @if (User.Identity is { IsAuthenticated: true })
         {
-            <form class="reply-form profile-comment-form" asp-page="/Users/PostProfileComment" asp-route-id="@Model.Data.Username" method="post">
+            <form class="reply-form profile-comment-form" asp-page="/Users/Comments/Post" asp-route-id="@Model.Data.Username" method="post">
                 <textarea name="content" placeholder="Post a new comment"></textarea>
                 <input type="hidden" name="redirectUrl" value="@Request.GetEncodedUrl()">
                 <button type="submit">Comment</button>

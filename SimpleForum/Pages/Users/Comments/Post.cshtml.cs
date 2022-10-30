@@ -6,11 +6,11 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Pages.Users;
 
-public class PostProfileComment : PageModel
+public class Post : PageModel
 {
     private readonly IMediator _mediator;
 
-    public PostProfileComment(IMediator mediator) => _mediator = mediator;
+    public Post(IMediator mediator) => _mediator = mediator;
 
     public record CommentPostModel(string content, string redirectUrl);
     
