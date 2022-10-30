@@ -68,7 +68,7 @@
                         <div class="divider"></div>
                         @if (_userAccessor.User?.Username == comment.UserId)
                         {
-                            <form asp-page="" asp-route-id="@comment.ProfileCommentId" asp-route-redirectUrl="@Request.GetEncodedUrl()" method="post">
+                            <form asp-page="/Users/Comments/Delete" asp-route-id="@comment.ProfileCommentId" asp-route-redirectUrl="@Request.GetEncodedUrl()" method="post">
                                 <button class="link-style-btn" type="submit">Delete</button>
                             </form>
                         }
