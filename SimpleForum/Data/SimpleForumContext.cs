@@ -11,6 +11,7 @@ public class SimpleForumContext : DbContext
     public DbSet<ForumThread> Threads { get; set; } = null!;
     public DbSet<ForumReply> Replies { get; set; } = null!;
     public DbSet<Forum> Forums { get; set; } = null!;
+    public DbSet<ProfileComment> ProfileComments { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,5 +19,13 @@ public class SimpleForumContext : DbContext
         modelBuilder.Entity<ForumThread>().ToTable("Thread");
         modelBuilder.Entity<ForumReply>().ToTable("Reply");
         modelBuilder.Entity<Forum>().ToTable("Forum");
+        
+        modelBuilder.Entity<ProfileComment>().ToTable("ProfileComment");
+        modelBuilder.Entity<ProfileComment>()
+            .HasOne(p => p.User)
+            .WithMany(u => u.PostedProfileComments);
+        modelBuilder.Entity<ProfileComment>()
+            .HasOne(p => p.RecipientProfile)
+            .WithMany(u => u.ReceivedProfileComments);
     }
 }

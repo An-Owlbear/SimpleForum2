@@ -12,17 +12,19 @@ public record ViewUserResponse
 {
     public string Username { get; } = default!;
     public string ProfileImage { get; } = default!;
-    public DateTime DateJoined = default!;
+    public DateTime DateJoined { get; } = default!;
     public IEnumerable<ForumThread> RecentThreads { get; } = default!;
     public IEnumerable<ForumReply> RecentReplies { get; } = default!;
+    public IEnumerable<ProfileComment> ProfileComments { get; } = default!;
 
-    public ViewUserResponse(Models.User user)
+    public ViewUserResponse(User user)
     {
         Username = user.Username;
         ProfileImage = user.ProfileImage;
         DateJoined = user.DateJoined;
         RecentThreads = user.Threads;
         RecentReplies = user.Replies;
+        ProfileComments = user.ReceivedProfileComments;
     }
 }
 
@@ -48,6 +50,9 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
                 .Take(5))
             .ThenInclude(r => r.Thread)
             .ThenInclude(t => t.Forum)
+            .Include(u => u.ReceivedProfileComments
+                .OrderByDescending(p => p.DatePosted))
+            .ThenInclude(p => p.User)
             .FirstOrDefaultAsync(u => u.Username == request.UserId, cancellationToken);
 
         return user == null

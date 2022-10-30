@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SimpleForum.Data;
@@ -11,9 +12,10 @@ using SimpleForum.Data;
 namespace SimpleForum.Migrations
 {
     [DbContext(typeof(SimpleForumContext))]
-    partial class SimpleForumContextModelSnapshot : ModelSnapshot
+    [Migration("20221028123048_Added_ProfileComment")]
+    partial class Added_ProfileComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

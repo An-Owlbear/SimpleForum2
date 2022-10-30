@@ -16,7 +16,7 @@
         <h1>@Model.Data.Title</h1>
     </div>
     
-    <div class="thread-reply" id="op">
+    <div class="reply" id="op">
         <div class="reply-profile-container">
             <img class="reply-profile-image" src="@Html.ProfileImgUrl(Model.Data.User.ProfileImage)" />
             <a asp-page="/Users/Index" asp-route-userId="@Model.Data.UserId">@Model.Data.User.Username</a>
@@ -39,7 +39,7 @@
     
     @foreach (ForumReply reply in Model.Data.Replies.Where(r => r.UserId != Constants.DeletedUser.Id))
     {
-        <div class="thread-reply" id="r@(reply.ReplyId)">
+        <div class="reply" id="r@(reply.ReplyId)">
             <div class="reply-profile-container">
                 <img class="reply-profile-image" src="@Html.ProfileImgUrl(reply.User.ProfileImage)" />
                 <a asp-page="/Users/Index" asp-route-userId="@reply.UserId">@reply.User.Username</a>

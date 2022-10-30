@@ -15,7 +15,7 @@ public class Result
     protected Result(bool success, Error? error)
     {
         Success = success;
-        Error = error;
+        Error = error!;
     }
 
     public bool Success { get; }
