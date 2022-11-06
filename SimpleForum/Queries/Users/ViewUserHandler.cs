@@ -51,7 +51,8 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
             .ThenInclude(r => r.Thread)
             .ThenInclude(t => t.Forum)
             .Include(u => u.ReceivedProfileComments
-                .OrderByDescending(p => p.DatePosted))
+                .OrderByDescending(p => p.DatePosted)
+                .Take(5))
             .ThenInclude(p => p.User)
             .FirstOrDefaultAsync(u => u.Username == request.UserId, cancellationToken);
 
