@@ -90,3 +90,17 @@
 .reply-form button {
   margin-left: auto;
 }
+
+.btn-style-link {
+  padding: 0.5rem 1rem;
+  color: var(--text-brighter);
+  background-color: var(--accent-500);
+  transition: background-color 0.1s ease;
+  font-size: 1rem;
+  border-radius: 5px;
+  display: block;
+}
+
+.btn-style-link:hover {
+  background-color: var(--accent-600);
+}

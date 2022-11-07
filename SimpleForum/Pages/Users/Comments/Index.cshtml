@@ -1,0 +1,46 @@
+﻿@page "/Users/{id}/Comments"
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using SimpleForum.Models
+@using SimpleForum.Extensions
+@using SimpleForum.Services
+@model SimpleForum.Pages.Users.Comments.Index
+@inject ICurrentUserAccessor _userAccessor;
+@{
+    ViewData["title"] = $"{@Model.Data.User.Username} - Profile comments";
+}
+
+<div class="main-container">
+    <h1>@Model.Data.User.Username - Profile comments</h1>
+    @if (User.Identity is { IsAuthenticated: true })
+    {
+        <form class="reply-form profile-comment-form" asp-page="/Users/Comments/Post" asp-route-id="@Model.Data.User.Username" method="post">
+            <textarea name="content" placeholder="Post a new comment"></textarea>
+            <input type="hidden" name="redirectUrl" value="@Request.GetEncodedUrl()">
+            <button type="submit">Comment</button>
+        </form>
+    }
+    
+    @foreach (ProfileComment comment in Model.Data.User.ReceivedProfileComments)
+    {
+        <div class="reply">
+            <div class="reply-profile-container">
+                <img class="reply-profile-image" src="@Html.ProfileImgUrl(comment.User.ProfileImage)">
+                <a asp-page="/Users/Index" asp-route-userId="@comment.UserId">@comment.User.Username</a>
+            </div>
+            <div class="reply-content">
+                <div class="reply-content-header">
+                    <time datetime="@comment.DatePosted.ToString("O")">@comment.DatePosted.ToString("f")</time>
+                    <div class="divider"></div>
+                    @if (_userAccessor.User?.Username == comment.UserId)
+                    {
+                        <form asp-page="/Users/Comments/Delete" asp-route-id="@comment.ProfileCommentId" asp-route-redirectUrl="@Request.GetEncodedUrl()" method="post">
+                            <button class="link-style-btn" type="submit">Delete</button>
+                        </form>
+                    }
+                </div>
+                <p>@comment.Content</p>
+            </div>
+        </div>
+    }
+</div>

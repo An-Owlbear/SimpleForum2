@@ -81,3 +81,10 @@
   margin-top: 0;
   margin-bottom: 2rem;
 }
+
+.all-comments-btn {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+}
