@@ -11,8 +11,9 @@ public record ViewUserRequest(string UserId) : IRequest<Result<ViewUserResponse>
 public record ViewUserResponse
 {
     public string Username { get; } = default!;
+    public string Bio { get; } = default!;
     public string ProfileImage { get; } = default!;
-    public DateTime DateJoined { get; } = default!;
+    public DateTime DateJoined { get; }
     public IEnumerable<ForumThread> RecentThreads { get; } = default!;
     public IEnumerable<ForumReply> RecentReplies { get; } = default!;
     public IEnumerable<ProfileComment> ProfileComments { get; } = default!;
@@ -20,6 +21,7 @@ public record ViewUserResponse
     public ViewUserResponse(User user)
     {
         Username = user.Username;
+        Bio = user.Bio;
         ProfileImage = user.ProfileImage;
         DateJoined = user.DateJoined;
         RecentThreads = user.Threads;
