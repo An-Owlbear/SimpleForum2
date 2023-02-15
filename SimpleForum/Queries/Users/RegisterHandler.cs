@@ -6,6 +6,13 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Users;
 
+/// <summary>
+/// Registers a new user in the database
+/// </summary>
+/// <param name="Username">The username of the new user</param>
+/// <param name="Email">The email of the new user, must be unique</param>
+/// <param name="Password">The password of the new user</param>
+/// <param name="ConfirmPassword">The password retyped, to ensure it is entered correctly</param>
 public record RegisterRequestModel
     (string Username, string Email, string Password, string ConfirmPassword) : IRequest<Result<User>>;
 
@@ -31,6 +38,7 @@ public class RegisterHandler : IRequestHandler<RegisterRequestModel, Result<User
 
         if (_context.Users.Any(u => u.Email == param.Email)) return Result.Failure<User>("The entered email is in use", ErrorType.BadRequest);
 
+        // Creates a new user, adding them to the database
         User userToAdd = new (param.Username, param.Email, param.Password);
         await _context.Users.AddAsync(userToAdd, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

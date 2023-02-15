@@ -6,8 +6,16 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Users;
 
+/// <summary>
+/// Retrieves information for the user of the given Id, also including their recent posts, replies and recent comments
+/// on their profile
+/// </summary>
+/// <param name="UserId">the Id of the user</param>
 public record ViewUserRequest(string UserId) : IRequest<Result<ViewUserResponse>>;
 
+/// <summary>
+/// The requested user information
+/// </summary>
 public record ViewUserResponse
 {
     public string Username { get; } = default!;
@@ -34,7 +42,6 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
 {
     private readonly SimpleForumContext _context;
 
-
     public ViewUserHandler(SimpleForumContext context)
     {
         _context = context;
@@ -42,6 +49,7 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
 
     public async Task<Result<ViewUserResponse>> Handle(ViewUserRequest request, CancellationToken cancellationToken)
     {
+        // Retrieves user information, including recent threads, replies and profile comments
         User? user = await _context.Users
             .Include(u => u.Threads
                 .OrderByDescending(t => t.DatePosted)
@@ -58,6 +66,7 @@ public class ViewUserHandler : IRequestHandler<ViewUserRequest, Result<ViewUserR
             .ThenInclude(p => p.User)
             .FirstOrDefaultAsync(u => u.Username == request.UserId, cancellationToken);
 
+        // Returns on error if the user is not found, success otherwise
         return user == null
             ? Result.Failure<ViewUserResponse>("User not found", ErrorType.NotFound)
             : Result.Successful(new ViewUserResponse(user));

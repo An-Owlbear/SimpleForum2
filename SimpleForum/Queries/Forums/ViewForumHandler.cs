@@ -6,8 +6,17 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Forums;
 
+/// <summary>
+/// Retrieves forum information and a list of threads
+/// </summary>
 public record ViewForumRequest(string ForumID) : IRequest<Result<ViewForumResponse>>;
 
+/// <summary>
+/// Information of the requested forum, and a list of threads within it
+/// </summary>
+/// <param name="ForumId">The id of the forum</param>
+/// <param name="Name">The name of the forum</param>
+/// <param name="Threads">List of threads in the forum</param>
 public record ViewForumResponse(string ForumId, string Name, IEnumerable<ForumThread> Threads);
 
 public class ViewForumHandler : IRequestHandler<ViewForumRequest, Result<ViewForumResponse>>

@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\images\profile_images" />
-      <Folder Include="wwwroot\lib" />
     </ItemGroup>
 
     <ItemGroup>

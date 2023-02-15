@@ -2,8 +2,14 @@ namespace SimpleForum.Util;
 
 public static class Constants
 {
+    /// <summary>
+    /// Contains information about the placeholder deleted user
+    /// </summary>
     public static class DeletedUser
     {
-        public static readonly string Id = "0";
+        /// <summary>
+        /// The ID for the placeholder deleted user
+        /// </summary>
+        public const string Id = "0";
     }
 }
