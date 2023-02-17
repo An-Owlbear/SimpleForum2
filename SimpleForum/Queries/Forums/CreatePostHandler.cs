@@ -6,6 +6,12 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Forums;
 
+/// <summary>
+/// Creates a new post
+/// </summary>
+/// <param name="Title">The title of the post</param>
+/// <param name="Content">The body of the post</param>
+/// <param name="ForumId">The id of the forum to post the thread to</param>
 public record CreatePostRequest(string Title, string Content, string ForumId) : IRequest<Result<ForumThread>>;
     
 public class CreatePostHandler : IRequestHandler<CreatePostRequest, Result<ForumThread>>
@@ -21,6 +27,7 @@ public class CreatePostHandler : IRequestHandler<CreatePostRequest, Result<Forum
 
     public async Task<Result<ForumThread>> Handle(CreatePostRequest param, CancellationToken cancellationToken)
     {
+        // Ensures the user is authenticated 
         if (_userAccessor.User == null) return Result.Failure<ForumThread>("User not signed in", ErrorType.Unauthorized);
         if (String.IsNullOrWhiteSpace(param.Title) || String.IsNullOrWhiteSpace(param.Content))
             return Result.Failure<ForumThread>("Title and content must cannot be empty", ErrorType.BadRequest);

@@ -16,6 +16,11 @@ public class View : PageModel
     public ForumThread Data { get; set; } = null!;
     public string? ReplyError { get; set; }
     
+    /// <summary>
+    /// Displays the thread
+    /// </summary>
+    /// <param name="threadId">The id of the thread to display</param>
+    /// <returns></returns>
     public async Task<IActionResult> OnGet(string threadId)
     {
         // Retrieves thread, returning 404 if not found
@@ -31,6 +36,12 @@ public class View : PageModel
 
     public record ReplyPostModel(string Content);
 
+    /// <summary>
+    /// Receives a request to post a reply to the thread
+    /// </summary>
+    /// <param name="threadId">The id of the thread</param>
+    /// <param name="reply">Information of the reply</param>
+    /// <returns></returns>
     public async Task<IActionResult> OnPostReply(string threadId, ReplyPostModel reply)
     {
         if (User.Identity is not { IsAuthenticated: true }) return Unauthorized();

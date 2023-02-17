@@ -6,6 +6,10 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Users;
 
+/// <summary>
+/// Allows the user to delete a comment they made an another user's profile
+/// </summary>
+/// <param name="id">The id of the comment to delete</param>
 public record DeleteProfileCommentRequest(string id) : IRequest<Result>;
 
 public class DeleteProfileCommentHandler : IRequestHandler<DeleteProfileCommentRequest, Result>

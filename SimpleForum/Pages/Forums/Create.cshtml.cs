@@ -19,6 +19,11 @@ public class Create : PageModel
     
     public string? CreateError { get; set; }
 
+    /// <summary>
+    /// Displays the thread creation form
+    /// </summary>
+    /// <param name="forumId">The id of the forum</param>
+    /// <returns></returns>
     public async Task<IActionResult> OnGet(string forumId)
     {
         Result<CreateFormResponse> result = await _mediator.Send(new CreateFormRequest(forumId));
@@ -31,6 +36,11 @@ public class Create : PageModel
         return NotFound();
     }
 
+    /// <summary>
+    /// Receives a thread creation request
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     public async Task<IActionResult> OnPost(CreatePostRequest model)
     {
         Result<ForumThread> result = await _mediator.Send(model);

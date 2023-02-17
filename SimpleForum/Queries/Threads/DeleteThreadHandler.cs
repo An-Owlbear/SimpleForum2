@@ -6,7 +6,10 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Threads;
 
-// Request object for deleting a thread
+/// <summary>
+/// Allows a user to delete their own thread
+/// </summary>
+/// <param name="Id">The id of the thread to delete</param>
 public record DeleteThreadRequest(string Id) : IRequest<Result>;
 
 // Handler class for deleting threads

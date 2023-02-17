@@ -4,11 +4,15 @@ using SimpleForum.Models;
 
 namespace SimpleForum.Services;
 
+/// <summary>
+/// Accesses information about the current user.
+/// </summary>
 public interface ICurrentUserAccessor
 {
     public User? User { get; }
 }
 
+/// <inheritdoc />
 public class CurrentUserAccessor : ICurrentUserAccessor
 {
     private readonly SimpleForumContext _context;
@@ -22,6 +26,10 @@ public class CurrentUserAccessor : ICurrentUserAccessor
 
     private User? _user;
 
+    /// <summary>
+    /// The current user. The first time this property is accessed each request will result in a database lookup for
+    /// the user information.
+    /// </summary>
     public User? User
     {
         get

@@ -5,8 +5,17 @@ using SimpleForum.Util;
 
 namespace SimpleForum.Queries.Forums;
 
+/// <summary>
+/// Loads the thread creation form for the current forum
+/// </summary>
+/// <param name="ForumId">The id of the forum to use</param>
 public record CreateFormRequest(string ForumId) : IRequest<Result<CreateFormResponse>>;
 
+/// <summary>
+/// Information of the forum to display the thread creation form for
+/// </summary>
+/// <param name="ForumId">The id of the forum</param>
+/// <param name="ForumName">The name of the forum</param>
 public record CreateFormResponse(string ForumId, string ForumName);
 
 public class CreateFormHandler : IRequestHandler<CreateFormRequest, Result<CreateFormResponse>>
